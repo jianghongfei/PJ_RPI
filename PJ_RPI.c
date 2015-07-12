@@ -66,10 +66,10 @@ void wait_i2c_done() {
 
 void i2c_init()
 {
-    INP_GPIO(0);
-    SET_GPIO_ALT(0, 0);
-    INP_GPIO(1);
-    SET_GPIO_ALT(1, 0);
+    INP_GPIO(3);
+    SET_GPIO_ALT(3, 0);
+    INP_GPIO(5);
+    SET_GPIO_ALT(5, 0);
 } 
 
 // Priority 

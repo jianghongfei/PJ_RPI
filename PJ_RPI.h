@@ -18,20 +18,22 @@
 #include <unistd.h>
 
 // Define which Raspberry Pi board are you using. Take care to have defined only one at time.
-#define RPI
-//#define RPI2
+//#define RPI
+#define RPI2
 
 #ifdef RPI
 #define BCM2708_PERI_BASE       0x20000000
 #define GPIO_BASE               (BCM2708_PERI_BASE + 0x200000)	// GPIO controller 
-#define BSC0_BASE 		(BCM2708_PERI_BASE + 0x205000)	// I2C controller	
 #endif
 
 #ifdef RPI2
 #define BCM2708_PERI_BASE       0x3F000000
 #define GPIO_BASE               (BCM2708_PERI_BASE + 0x200000)	// GPIO controller. Maybe wrong. Need to be tested.
-#define BSC0_BASE 		(BCM2708_PERI_BASE + 0x804000)	// I2C controller	
-#endif	
+#endif
+
+//#define BSC0_BASE		 (BCM2708_PERI_BASE + 0x205000) /* BSC0 I2C/TWI */
+//#define BSC1_BASE		 (BCM2708_PERI_BASE + 0x804000) /* BSC1 I2C/TWI */
+#define BSC0_BASE		 (BCM2708_PERI_BASE + 0x804000) /* BSC0 I2C/TWI */
 
 #define PAGE_SIZE 		(4*1024)
 #define BLOCK_SIZE 		(4*1024)
@@ -46,6 +48,7 @@ struct bcm2835_peripheral {
 
 extern struct bcm2835_peripheral gpio; 	// They have to be found somewhere, but can't be in the header
 extern struct bcm2835_peripheral bsc0;	// so use extern!!
+extern struct bcm2835_peripheral bsc1;
 
 // GPIO setup macros. Always use INP_GPIO(x) before using OUT_GPIO(x) or SET_GPIO_ALT(x,y)
 #define INP_GPIO(g) 	*(gpio.addr + ((g)/10)) &= ~(7<<(((g)%10)*3))
